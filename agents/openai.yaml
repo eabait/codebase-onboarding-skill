@@ -1,0 +1,7 @@
+interface:
+  display_name: "Codebase Onboarding"
+  short_description: "Generate architecture-first onboarding wiki docs"
+  default_prompt: "Use $codebase-onboarding to analyze this repository and generate a source-linked onboarding wiki."
+
+policy:
+  allow_implicit_invocation: true

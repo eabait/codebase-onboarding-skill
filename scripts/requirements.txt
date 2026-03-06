@@ -1,0 +1,17 @@
+# Codebase Onboarding Skill — Python Dependencies
+# All optional. The analyzer degrades gracefully if any are missing.
+
+# AST-based code structure extraction (classes, functions, interfaces)
+# Provides 165+ language parsers via pre-compiled wheels
+tree-sitter>=0.22.0
+tree-sitter-language-pack>=0.6.0
+
+# .gitignore-aware file traversal
+pathspec>=0.11.0
+
+# PageRank-based importance ranking of code entities
+networkx>=3.0
+
+# TOML parsing for pyproject.toml, Cargo.toml (Python <3.11 only)
+# Python 3.11+ has tomllib in stdlib
+tomli>=2.0.0; python_version < "3.11"
