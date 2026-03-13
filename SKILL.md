@@ -32,7 +32,7 @@ Run the analysis script to gather structured data about the codebase:
 
 ```bash
 pip install -r scripts/requirements.txt  # optional, graceful degradation
-python scripts/analyze.py <repo_path> --output /tmp/codebase-analysis.json
+python scripts/analyze.py <repo_path> --output codebase-analysis.json
 ```
 
 ## Execution Contract
