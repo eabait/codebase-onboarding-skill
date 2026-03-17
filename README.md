@@ -95,38 +95,34 @@ codebase-onboarding-skill/
 
 ## Getting Started
 
-### 1. Install Python dependencies (optional but recommended)
+### 1. Install the skill
+
+Install via the [Vercel Labs Skills](https://github.com/vercel-labs/skills) framework:
 
 ```bash
-pip install -r scripts/requirements.txt
+skills install https://github.com/eabait/codebase-onboarding-skill
 ```
 
-Enables AST-level analysis (tree-sitter), PageRank file ranking (networkx), and
-git history insights. All features degrade gracefully if deps are missing.
+### 2. Ask your agent to onboard you
 
-### 2. Analyse your repository
+Point your agent at a repository and ask:
 
-```bash
-python3 scripts/analyze.py /path/to/repo --output analysis.json
-```
+> "Onboard me to this codebase."
 
-This produces a structured JSON with ranked files, framework detection, key symbols,
-dependency graphs, and git contribution patterns.
+That's it. The skill instructs the agent to install dependencies, run the codebase
+analysis, and generate the full wiki automatically — no manual steps required.
 
-### 3. Generate the wiki
+The agent will:
+1. Install Python deps (`scripts/requirements.txt`) if needed
+2. Run `scripts/analyze.py` on the repository to produce a structured analysis
+3. Read `SKILL.md` and the reference docs
+4. Generate a complete wiki and write the pages to `wiki/`
 
-Use the analysis output to drive the skill. Pass it to your LLM of choice along
-with `SKILL.md` and the reference documents.
+### Manual invocation (without the skills framework)
 
-Minimum invocation pattern (Claude Code):
-
-```bash
-claude "Read SKILL.md, references/page-template.md, references/diagram-patterns.md,
-and analysis.json. Then generate a full onboarding wiki for the repo at /path/to/repo
-and write the pages to wiki/"
-```
-
-Or with Gemini / Codex — see [`evals/README.md`](evals/README.md) for per-harness examples.
+If you're using an agent directly, pass `SKILL.md` and the reference docs in context
+alongside the repo path. See [`evals/README.md`](evals/README.md) for per-harness
+examples with Claude Code, Gemini CLI, and Codex CLI.
 
 ---
 
