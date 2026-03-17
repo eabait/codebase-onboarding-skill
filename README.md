@@ -100,7 +100,11 @@ codebase-onboarding-skill/
 Install via the [Vercel Labs Skills](https://github.com/vercel-labs/skills) framework:
 
 ```bash
-skills install https://github.com/eabait/codebase-onboarding-skill
+# Install to all agents
+npx skills add eabait/codebase-onboarding-skill --all
+
+# Or install to a specific agent
+npx skills add eabait/codebase-onboarding-skill -a claude-code
 ```
 
 ### 2. Ask your agent to onboard you
