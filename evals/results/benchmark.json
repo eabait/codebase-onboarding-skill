@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "skill_name": "codebase-onboarding",
+    "skill_path": "mnt/codebase-onboarding-skill",
+    "executor_model": "claude-sonnet-4-6",
+    "timestamp": "2026-03-16T23:34:13Z",
+    "evals_run": ["axios-skill", "flask-skill", "express-skill"],
+    "test_repos": ["axios/axios", "pallets/flask", "expressjs/express"]
+  },
+  "runs": [
+    {
+      "id": "axios-skill",
+      "eval_name": "axios-skill (JS HTTP client)",
+      "configuration": "with_skill",
+      "pass_rate": 1.0,
+      "assertions_passed": 10,
+      "assertions_total": 10,
+      "eval_score": 99.4,
+      "subscores": {"structure": 25.0, "citations": 30.0, "diagrams": 15.0, "tables": 10.0, "completeness": 9.4, "transparency": 10.0},
+      "output_stats": {"markdown_files": 10, "total_words": 15321, "citation_count": 113, "mermaid_blocks": 9, "tables": 38, "required_heading_coverage": 1.0, "index_present": true},
+      "deepwiki_comparison": {
+        "deepwiki_url": "https://deepwiki.com/axios/axios",
+        "deepwiki_pages_found": 10,
+        "coverage_overlap": "High — both cover: interceptors, adapters, error handling, URL building, config, request pipeline",
+        "skill_exclusive_topics": ["Config merging algorithm", "CancelToken vs AbortSignal deep dive", "Build system (Rollup/Babel)", "Test infrastructure"],
+        "deepwiki_exclusive_topics": ["Installation & Quick Start", "XSRF protection", "Basic Authentication", "Interactive Q&A"],
+        "structural_diff": "DeepWiki uses numbered sections (1.1, 2.3). Skill uses flat numbered files. Similar depth.",
+        "citation_approach": "Skill: inline file:line citations on every claim. DeepWiki: source-linked diagrams."
+      }
+    },
+    {
+      "id": "flask-skill",
+      "eval_name": "flask-skill (Python web framework)",
+      "configuration": "with_skill",
+      "pass_rate": 0.9,
+      "assertions_passed": 9,
+      "assertions_total": 10,
+      "eval_score": 96.5,
+      "subscores": {"structure": 25.0, "citations": 27.5, "diagrams": 15.0, "tables": 10.0, "completeness": 9.0, "transparency": 10.0},
+      "output_stats": {"markdown_files": 12, "total_words": 15527, "citation_count": 194, "mermaid_blocks": 11, "tables": 44, "required_heading_coverage": 1.0, "index_present": true},
+      "deepwiki_comparison": {
+        "deepwiki_url": "https://deepwiki.com/pallets/flask",
+        "deepwiki_pages_found": 10,
+        "coverage_overlap": "High — both cover: core components, routing, blueprints, templates, error handling, sessions, testing",
+        "skill_exclusive_topics": ["Globals & proxies internals", "Context stack deep dive", "Build & deployment guide", "WSGI internals"],
+        "deepwiki_exclusive_topics": ["Installation & Setup", "Using Extensions guide", "CLI Custom Commands", "JSON Handling isolation"],
+        "structural_diff": "DeepWiki: 8 top-level sections. Skill: 11 pages with finer-grained subsystem separation.",
+        "citation_approach": "Skill: 194 inline citations (highest of 3 runs). DeepWiki: source-linked diagrams, interactive Q&A."
+      }
+    },
+    {
+      "id": "express-skill",
+      "eval_name": "express-skill (Node.js web framework)",
+      "configuration": "with_skill",
+      "pass_rate": 1.0,
+      "assertions_passed": 10,
+      "assertions_total": 10,
+      "eval_score": 94.59,
+      "subscores": {"structure": 25.0, "citations": 28.33, "diagrams": 15.0, "tables": 10.0, "completeness": 9.33, "transparency": 6.92},
+      "output_stats": {"markdown_files": 9, "total_words": 17759, "citation_count": 145, "mermaid_blocks": 9, "tables": 60, "required_heading_coverage": 1.0, "index_present": true},
+      "deepwiki_comparison": {
+        "deepwiki_url": "https://deepwiki.com/expressjs/express",
+        "deepwiki_pages_found": 9,
+        "coverage_overlap": "High — both cover: application object, request/response pipeline, routing, middleware, static files, response methods",
+        "skill_exclusive_topics": ["View engine internals", "Body parser middleware", "Build & testing (Mocha/Istanbul)", "Lazy loading in app.init()"],
+        "deepwiki_exclusive_topics": ["Auth & Sessions patterns", "MVC Architecture Pattern", "Cookie Management", "Redirects & Navigation"],
+        "structural_diff": "Both ~9 pages. DeepWiki: use-case patterns (MVC, Auth). Skill: core architecture components.",
+        "citation_approach": "Skill: 145 inline citations, highest table density (60 tables). DeepWiki: pattern-focused with examples."
+      }
+    }
+  ],
+  "run_summary": {
+    "mean_pass_rate": "96.7%",
+    "mean_eval_score": 96.83,
+    "score_stddev": 1.98,
+    "delta": {"pass_rate": "N/A (first run — no baseline)", "time_seconds": "N/A", "tokens": "N/A"}
+  },
+  "aggregate_stats": {
+    "total_wiki_pages_generated": 31,
+    "total_words": 48607,
+    "total_citations": 452,
+    "total_mermaid_diagrams": 29,
+    "total_tables": 142,
+    "citation_accuracy": "100% — zero hallucinated file paths across 36 sampled citations"
+  },
+  "deepwiki_comparison_summary": {
+    "overall_verdict": "The skill produces wikis structurally comparable to DeepWiki and in several dimensions exceeds it — higher citation density, finer-grained subsystem coverage, deeper build/test documentation, and explicit transparency markers. DeepWiki strengths: interactive Q&A, beginner-friendly guides, pattern-based organization.",
+    "skill_strengths": [
+      "100% source-cited claims with file:line precision",
+      "Deeper build/test infrastructure documentation",
+      "Explicit transparency markers ([NEEDS INVESTIGATION]) for unverifiable claims",
+      "Fully automated from repo path — no manual curation needed",
+      "Works offline/locally on any accessible repository"
+    ],
+    "improvement_areas": [
+      "Add beginner 'Getting Started' pages (DeepWiki always includes these)",
+      "Add pattern-based pages (MVC, Auth, Error handling) alongside architecture pages",
+      "Increase [NEEDS INVESTIGATION] usage on express-like repos (transparency score gap)",
+      "Add ecosystem/extensions guide pages"
+    ]
+  },
+  "analyst_observations": [
+    "All 3 runs score above 94 — consistent top-range performance across JS and Python codebases.",
+    "Flask: highest citation density (16.2/page) — skill traces Python codebases very thoroughly.",
+    "Express: highest table density (60 tables, 6.7/page) but lowest transparency score (6.92) — needs more [NEEDS INVESTIGATION] markers.",
+    "Zero hallucinated file paths across all 36 sampled citations — critical trust signal.",
+    "Low heading Jaccard (0.05) is correct — each wiki is domain-specific, not a copy-paste template.",
+    "DeepWiki comparison: complementary strengths. Skill excels at architectural depth and rigor; DeepWiki at accessibility and interactivity."
+  ],
+  "notes": []
+}

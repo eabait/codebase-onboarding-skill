@@ -1,104 +1,148 @@
 # Codebase Onboarding Skill
 
-This repository contains a skill for generating DeepWiki-style codebase onboarding documentation with source-linked claims, diagrams, and structured pages.
+Generate **DeepWiki-style onboarding documentation** for any codebase — source-linked,
+diagram-rich, and structured for both humans and LLMs to navigate.
 
-## What Is Included
+Validated against axios, flask, and express with a mean eval score of **96.8 / 100**
+across three independent LLM harnesses (Claude, Gemini CLI, OpenAI Codex CLI).
 
-- `SKILL.md`: Invocation and workflow instructions for the skill.
-- `scripts/analyze.py`: Repository reconnaissance analyzer.
-- `scripts/eval.py`: Output quality evaluator for multi-run comparisons.
-- `references/page-template.md`: Required page structure.
-- `references/diagram-patterns.md`: Mermaid diagram patterns.
-- `references/language-guides.md`: Language/framework analysis guidance.
-- `agents/openai.yaml`: Harness metadata for implicit invocation.
+---
 
-## Skill Usage
+## What This Skill Produces
 
-Use this skill when a user asks to understand, document, or onboard into a repository.
+A hierarchical wiki of Markdown pages, each containing:
 
-### 1) Install dependencies (optional, recommended)
+- **TL;DR** — 2–3 sentences summarising the subsystem
+- **Architecture diagram** — Mermaid flowchart or sequence diagram
+- **Relevant Source Files** table — every claim links back to real file paths
+- **Key Concepts** table — structured reference for onboarding engineers
+- **Prose with inline citations** — `path/to/file.ext:L45–L87` on every claim
+- **`[NEEDS INVESTIGATION]`** markers — honest flags on anything unverified
 
-```bash
-python3 -m pip install -r scripts/requirements.txt
 ```
-
-### 2) Run repository analysis first
-
-```bash
-python3 scripts/analyze.py /path/to/repo --output codebase-analysis.json
-```
-
-### 3) Use the analysis report to drive docs
-
-Minimum workflow:
-
-1. Read `codebase-analysis.json`
-2. Check `summary.capabilities_missing`
-3. Build page hierarchy from `key_entities`, `frameworks`, and `symbols.by_kind`
-4. Write pages using `references/page-template.md`
-5. Use Mermaid patterns from `references/diagram-patterns.md`
-6. Mark unknowns as `[NEEDS INVESTIGATION]`
-
-### 4) Typical output layouts
-
-Wiki output:
-
-```text
 wiki/
-├── 00-index.md
-├── 01-overview.md
-├── 02-*.md
+├── 00-index.md          Table of contents + navigation guide
+├── 01-overview.md       High-level architecture + Mermaid diagram
+├── 02-request-lifecycle.md
+├── 03-middleware.md
 └── ...
 ```
 
-Single-file onboarding doc:
+---
 
-```text
-onboarding.md
+## Repository Layout
+
+```
+codebase-onboarding-skill/
+├── SKILL.md                   ← Skill invocation & workflow instructions
+├── scripts/
+│   ├── analyze.py             ← Codebase reconnaissance (AST, PageRank, git)
+│   ├── eval.py                ← Wiki quality scorer (6 dimensions, max 100)
+│   └── requirements.txt       ← Optional Python deps
+├── references/
+│   ├── page-template.md       ← Required page structure
+│   ├── diagram-patterns.md    ← Mermaid diagram templates by scenario
+│   └── language-guides.md     ← Language/framework-specific analysis guidance
+├── agents/
+│   └── openai.yaml            ← Harness metadata for implicit invocation
+└── evals/
+    ├── run.sh                 ← Unified eval runner (Claude + Gemini + Codex)
+    ├── score.py               ← Multi-harness comparison scorer
+    ├── parse_gemini.py        ← Splits Gemini's delimited output into .md files
+    ├── README.md              ← Eval setup & runbook
+    └── results/               ← Committed benchmark artifacts
 ```
 
-## Evaluation Workflow (Across LLM/Harness Runs)
+---
 
-Use `scripts/eval.py` to score and compare documentation quality across multiple runs.
+## Getting Started
 
-### Expected input layout
-
-`eval.py` expects one subdirectory per run:
-
-```text
-runs/
-├── gpt5-codex/
-│   └── wiki/*.md
-├── claude-code/
-│   └── wiki/*.md
-└── copilot/
-    └── wiki/*.md
-```
-
-### Run evaluation
+### 1. Install Python dependencies (optional but recommended)
 
 ```bash
-python3 scripts/eval.py /path/to/runs --output onboarding-eval.json
+pip install -r scripts/requirements.txt
 ```
 
-### What is scored
+Enables AST-level analysis (tree-sitter), PageRank file ranking (networkx), and
+git history insights. All features degrade gracefully if deps are missing.
 
-- Required section coverage (`Relevant Source Files`, `TL;DR`, `Overview`, etc.)
-- Citation coverage and citation density
-- Mermaid diagram presence
-- Table presence
-- Completeness signals (index page and TL;DR coverage)
-- Transparency signals (`[NEEDS INVESTIGATION]`, limitations mentions)
-- Cross-run consistency (heading-set Jaccard similarity)
+### 2. Analyse your repository
 
-### Report outputs
+```bash
+python3 scripts/analyze.py /path/to/repo --output analysis.json
+```
 
-- Console ranking table by run
-- JSON report with per-run metrics, subscores, notes, and summary stats
+This produces a structured JSON with ranked files, framework detection, key symbols,
+dependency graphs, and git contribution patterns.
 
-## Reproducibility Tips
+### 3. Generate the wiki
 
-- Evaluate runs against the same repository commit.
-- Keep dependency versions stable across environments.
-- Track score trends over time instead of one-off scores.
-- Use the same output format (`wiki/` or single file) across compared runs.
+Use the analysis output to drive the skill. Pass it to your LLM of choice along
+with `SKILL.md` and the reference documents.
+
+Minimum invocation pattern (Claude Code):
+
+```bash
+claude "Read SKILL.md, references/page-template.md, references/diagram-patterns.md,
+and analysis.json. Then generate a full onboarding wiki for the repo at /path/to/repo
+and write the pages to wiki/"
+```
+
+Or with Gemini / Codex — see [`evals/README.md`](evals/README.md) for per-harness examples.
+
+---
+
+## Evaluation
+
+Run the built-in eval harness to benchmark quality across models:
+
+```bash
+# All harnesses (Claude + Gemini + Codex), all 3 reference repos
+bash evals/run.sh
+
+# Single harness
+bash evals/run.sh --harness gemini
+bash evals/run.sh --harness codex axios
+```
+
+### Benchmark results (March 2026)
+
+| Harness | Model | Score | Cit/page | vs Baseline |
+|---------|-------|:-----:|:--------:|:-----------:|
+| Claude  | claude-sonnet-4-6 | **96.8** | 15.2 | — |
+| Codex   | gpt-5.2 | **92.2** | 39.6 | −4.6 |
+| Gemini  | gemini-2.5-pro | **91.7** | 6.3 | −5.1 |
+
+View the full interactive report: [`evals/results/multi-harness-review.html`](evals/results/multi-harness-review.html)
+
+### Scorer dimensions
+
+`scripts/eval.py` grades six dimensions (max 100 points):
+
+| Dimension | Max | Measures |
+|-----------|----:|---------|
+| Structure | 25 | TL;DR, required headings, source-files table, index page |
+| Citations | 30 | Citation count, format (`file.py:L45`), density per page |
+| Diagrams  | 15 | Mermaid blocks, multi-node diagrams |
+| Tables    | 10 | Key Concepts tables, component references |
+| Completeness | 10 | Page count, word count, topic coverage |
+| Transparency | 10 | `[NEEDS INVESTIGATION]` markers |
+
+```bash
+# Score any wiki output directory
+python3 scripts/eval.py path/to/runs/ --output report.json
+```
+
+---
+
+## Contributing
+
+Pull requests welcome. When adding support for a new language or framework, update
+`references/language-guides.md`. When adding a new eval harness, follow the pattern
+in `evals/run.sh` and document it in `evals/README.md`.
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).

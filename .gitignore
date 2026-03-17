@@ -208,3 +208,9 @@ __marimo__/
 
 # MacOS
 .DS_Store
+
+# Evals — generated at runtime, not committed
+evals/repos/
+evals/outputs/
+evals/report.md
+evals/scores.json
