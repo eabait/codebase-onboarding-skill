@@ -4,7 +4,7 @@ description: "Generate a DeepWiki-style structured wiki for any codebase to acce
 license: Apache-2.0
 metadata:
   author: eabait
-  version: "2.1"
+  version: "2.2"
 allowed-tools: Bash(python3:*) Bash(pip:*) Bash(git:*) Read
 ---
 
@@ -43,13 +43,17 @@ Use this contract to reduce output variance across models and harnesses.
 - Run `scripts/analyze.py` first when a repository path is available.
 - Read the JSON report before writing any architecture claims.
 - Check `summary.capabilities_missing` and adapt output scope accordingly.
-- Cite source files for every technical claim.
-- Mark unverifiable claims as `[NEEDS INVESTIGATION]`.
+- Cite source files for every technical claim using `path/to/file.ext:L45-L87` format.
+- Mark unverifiable claims as `[NEEDS INVESTIGATION]`. Target **at least 1 per content page** — flag architectural decisions you inferred rather than directly observed in code. A wiki with zero `[NEEDS INVESTIGATION]` markers is almost certainly overconfident.
+- Include **all 7 required sections** on every content page (not 00-index.md): `TL;DR` · `Relevant Source Files` · architecture diagram · `Key Concepts` table · detailed prose with citations · `Cross-references` · `Active Development Areas`.
+- The index page (`00-index.md`) is navigation-only — it does **not** require TL;DR, citations, or diagrams.
 
 **SHOULD**
 - Install optional Python dependencies for better structural analysis: `pip install -r scripts/requirements.txt`.
 - Prioritize `key_entities` and `git.hotspots` when choosing what to document first.
 - Keep diagrams and tables aligned with observed code structure, not assumptions.
+- Write **at least 400 words per content page**. Trace one code path thoroughly rather than listing many superficially. Depth beats breadth.
+- Include **at least 3 `file:line` citations per major prose section**. Aim for ≥10 citations per page total.
 
 **MAY**
 - Continue with manual reconnaissance when script execution is not possible.
@@ -151,6 +155,8 @@ Based on reconnaissance, define the wiki page tree. Use these inputs from the an
 Build the numbered hierarchy:
 
 ```
+0   - Index (navigation only — no TL;DR, no citations, no diagrams)
+0.5 - Getting Started (installation, minimal working example, entry-point pointers)
 1   - Overview
 2   - [Major System A]
 2.1 - [Subsystem A.1]
@@ -165,6 +171,7 @@ Rules:
 - 8-15 top-level sections for medium codebases, 15-25 for large ones
 - Each top-level section gets 2-6 subsections
 - Last two sections are always Build/Dev and Testing
+- **Always generate a Getting Started page** (`00.5-getting-started.md`) — this is the entry point for new engineers. Include: prerequisites, installation steps, a minimal working example (code snippet), and pointers to the 2-3 most important files to read first. This page does not need citations or `[NEEDS INVESTIGATION]` markers.
 
 Produce a top-level architecture diagram (Mermaid `graph TD`) before writing any pages.
 
@@ -199,13 +206,14 @@ Assemble pages into the final output. Output format depends on what the user nee
 For file-based output, structure as:
 ```
 wiki/
-├── 00-index.md          (table of contents with links)
+├── 00-index.md               (table of contents with links — no TL;DR/citations/diagrams)
+├── 00.5-getting-started.md   (installation, minimal example, entry-point pointers)
 ├── 01-overview.md
 ├── 02-system-a.md
 ├── 02.1-subsystem-a1.md
 ├── ...
 └── assets/
-    └── diagrams/        (exported Mermaid if requested)
+    └── diagrams/             (exported Mermaid if requested)
 ```
 
 ## Core Principles — Read These
@@ -231,8 +239,8 @@ These are non-negotiable quality standards:
 | Monorepo | "Repository Structure" mapping packages/services; per-package subtrees |
 | Microservices | "Service Communication" (protocols, contracts, discovery); per-service sections |
 | Frontend SPA | Routing, State Management, Component Hierarchy, Build/Bundle |
-| Backend API | Route Definitions, Middleware Pipeline, Data Access Layer, Auth Flow |
-| Library/SDK | Public API Surface, Extension Points, Usage Examples |
+| Backend API | Route Definitions, Middleware Pipeline, Data Access Layer, Auth Flow, **Common Patterns** (auth flow, request validation, error handling) |
+| Library/SDK | Public API Surface, Extension Points, **Usage Patterns** (common integration patterns, configuration, extending the library), Usage Examples |
 | CLI Tool | Command Hierarchy, Argument Parsing, Plugin System |
 | Mobile App | Navigation, State Management, Platform-Specific Code, Build Variants |
 
