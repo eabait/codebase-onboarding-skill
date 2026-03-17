@@ -28,6 +28,44 @@ wiki/
 └── ...
 ```
 
+### Example outputs (Claude baseline, scored 96.8/100)
+
+**[axios](https://github.com/axios/axios)** — Promise-based HTTP client
+- [00 · Index](evals/results/wiki/axios/wiki/00-index.md)
+- [01 · Overview & Architecture](evals/results/wiki/axios/wiki/01-overview.md)
+- [02 · HTTP Client Core](evals/results/wiki/axios/wiki/02-http-client-core.md)
+- [03 · Request Pipeline](evals/results/wiki/axios/wiki/03-request-pipeline.md)
+- [04 · Interceptors](evals/results/wiki/axios/wiki/04-interceptors.md)
+- [05 · Adapters](evals/results/wiki/axios/wiki/05-adapters.md)
+- [06 · Config Merging](evals/results/wiki/axios/wiki/06-config-merging.md)
+- [07 · Error Handling](evals/results/wiki/axios/wiki/07-error-handling.md)
+- [08 · Build & Development](evals/results/wiki/axios/wiki/08-build-development.md)
+- [09 · Testing](evals/results/wiki/axios/wiki/09-testing.md)
+
+**[flask](https://github.com/pallets/flask)** — Python web framework
+- [00 · Index](evals/results/wiki/flask/wiki/00-index.md)
+- [01 · Overview & Architecture](evals/results/wiki/flask/wiki/01-overview.md)
+- [02 · Application Core](evals/results/wiki/flask/wiki/02-application-core.md)
+- [03 · Request / Response Cycle](evals/results/wiki/flask/wiki/03-request-response-cycle.md)
+- [04 · Routing System](evals/results/wiki/flask/wiki/04-routing-system.md)
+- [05 · Blueprints](evals/results/wiki/flask/wiki/05-blueprints.md)
+- [06 · Context Management](evals/results/wiki/flask/wiki/06-context-management.md)
+- [07 · Globals & Proxies](evals/results/wiki/flask/wiki/07-globals-and-proxies.md)
+- [08 · Templating](evals/results/wiki/flask/wiki/08-templating.md)
+- [09 · Sessions & Cookies](evals/results/wiki/flask/wiki/09-sessions-and-cookies.md)
+- [10 · Build & Deployment](evals/results/wiki/flask/wiki/10-build-and-deployment.md)
+
+**[express](https://github.com/expressjs/express)** — Node.js web framework
+- [00 · Index](evals/results/wiki/express/wiki/00-index.md)
+- [01 · Overview & Architecture](evals/results/wiki/express/wiki/01-overview.md)
+- [02 · Application Core](evals/results/wiki/express/wiki/02-application-core.md)
+- [03 · Routing System](evals/results/wiki/express/wiki/03-routing-system.md)
+- [04 · Middleware Pipeline](evals/results/wiki/express/wiki/04-middleware-pipeline.md)
+- [05 · Request & Response](evals/results/wiki/express/wiki/05-request-response.md)
+- [06 · View Engine](evals/results/wiki/express/wiki/06-view-engine.md)
+- [07 · Static Middleware](evals/results/wiki/express/wiki/07-static-middleware.md)
+- [08 · Build & Testing](evals/results/wiki/express/wiki/08-build-and-testing.md)
+
 ---
 
 ## Repository Layout
@@ -113,7 +151,10 @@ bash evals/run.sh --harness codex axios
 | Codex   | gpt-5.2 | **92.2** | 39.6 | −4.6 |
 | Gemini  | gemini-2.5-pro | **91.7** | 6.3 | −5.1 |
 
-View the full interactive report: [`evals/results/multi-harness-review.html`](evals/results/multi-harness-review.html)
+Full results:
+- [Multi-harness comparison report](evals/results/multi-harness-report.md) — Claude vs Codex vs Gemini, all repos
+- [Claude baseline report](evals/results/baseline-report.md) — per-repo subscores and notes
+- [Benchmark data (JSON)](evals/results/benchmark.json)
 
 ### Scorer dimensions
 
