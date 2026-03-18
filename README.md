@@ -3,7 +3,7 @@
 Generate **DeepWiki-style onboarding documentation** for any codebase — source-linked,
 diagram-rich, and structured for both humans and LLMs to navigate.
 
-Validated against axios, flask, and express with a mean eval score of **96.8 / 100**
+Validated against axios, flask, and express with a mean eval score of **95.3 / 100**
 across three independent LLM harnesses (Claude, Gemini CLI, OpenAI Codex CLI).
 
 ---
@@ -28,7 +28,7 @@ wiki/
 └── ...
 ```
 
-### Example outputs (Claude baseline, scored 96.8/100)
+### Example outputs (Claude baseline, SKILL.md v2.2, scored 95.3/100)
 
 **[axios](https://github.com/axios/axios)** — Promise-based HTTP client
 - [00 · Index](evals/results/wiki/axios/wiki/00-index.md)
@@ -143,13 +143,13 @@ bash evals/run.sh --harness gemini
 bash evals/run.sh --harness codex axios
 ```
 
-### Benchmark results (March 2026)
+### Benchmark results (March 2026, SKILL.md v2.2)
 
 | Harness | Model | Score | Cit/page | vs Baseline |
 |---------|-------|:-----:|:--------:|:-----------:|
-| Claude  | claude-sonnet-4-6 | **96.8** | 15.2 | — |
-| Codex   | gpt-5.2 | **92.2** | 39.6 | −4.6 |
-| Gemini  | gemini-2.5-pro | **91.7** | 6.3 | −5.1 |
+| Claude  | claude-sonnet-4-6 | **95.3** | 13.7 | — |
+| Codex   | gpt-5.2 | **92.2** | 39.6 | −3.1 |
+| Gemini  | gemini-2.5-pro | **91.7** | 6.3 | −3.6 |
 
 Full results:
 - [Multi-harness comparison report](evals/results/multi-harness-report.md) — Claude vs Codex vs Gemini, all repos

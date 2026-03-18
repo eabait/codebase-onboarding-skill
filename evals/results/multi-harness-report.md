@@ -1,14 +1,14 @@
 # Multi-Harness Eval Results
 
-*Generated: 2026-03-17 01:53 UTC*
+*Generated: 2026-03-18 (updated to SKILL.md v2.2) · Previous run: 2026-03-17*
 
 ## Score Summary
 
 | Run | Harness | Score | Files | Cit/page | Mermaid | Tables | Δ vs Claude |
 |-----|---------|------:|------:|---------:|:-------:|-------:|------------:|
-| axios-claude | claude (baseline) | **99.4** | 10 | 11.3 | 9 | 38 | — |
-| flask-claude | claude (baseline) | **96.5** | 12 | 16.2 | 11 | 44 | — |
-| express-claude | claude (baseline) | **94.6** | 9 | 16.1 | 9 | 60 | — |
+| axios-claude (v2.2) | claude | **94.0** | 12 | 15.8 | 10 | 68 | — |
+| flask-claude (v2.2) | claude | **97.15** | 17 | 14.8 | 19 | 118 | — |
+| express-claude (v2.2) | claude | **94.63** | 13 | 10.5 | 10 | 92 | — |
 | flask-gemini | gemini-cli:gemini | 95.76 | 10 | 9.1 | 9 | 30 | -0.7 |
 | express-codex-gpt-5.2 | codex-cli:gpt-5.2 | 95.52 | 9 | 44.9 | 8 | 34 | +0.9 |
 | flask-codex-gpt-5.2 | codex-cli:gpt-5.2 | 95.23 | 8 | 39.4 | 7 | 30 | -1.3 |

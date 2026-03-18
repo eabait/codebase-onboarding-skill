@@ -99,15 +99,15 @@ to disk. No output parsing required.
 | Completeness | 10 | Page count, word count, topic breadth |
 | Transparency | 10 | `[NEEDS INVESTIGATION]` markers on uncertain claims |
 
-### Benchmark results (March 2026)
+### Benchmark results (March 2026, SKILL.md v2.2)
 
 Evaluated against axios v1.7, flask 3.1, express 5.1:
 
 | Harness | Model | Mean score | Cit/page | vs Claude |
 |---------|-------|:----------:|:--------:|:---------:|
-| Claude  | claude-sonnet-4-6 | **96.8** | 15.2 | — |
-| Codex   | gpt-5.2 | **92.2** | 39.6 | −4.6 |
-| Gemini  | gemini-2.5-pro | **91.7** | 6.3 | −5.1 |
+| Claude  | claude-sonnet-4-6 | **95.3** | 13.7 | — |
+| Codex   | gpt-5.2 | **92.2** | 39.6 | −3.1 |
+| Gemini  | gemini-2.5-pro | **91.7** | 6.3 | −3.6 |
 
 See [`results/multi-harness-review.html`](results/multi-harness-review.html) for
 the full interactive dashboard.
